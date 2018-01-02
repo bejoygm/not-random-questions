@@ -1,0 +1,16 @@
+{
+  "name": "nrq-frontend",
+  "version": "1.0.0",
+  "description": "Frontend codebase for nrq",
+  "main": "index.js",
+  "repository": "https://github.com/bdarksider/not-random-questions.git",
+  "author": "Bejoy George Mathew",
+  "license": "MIT",
+  "dependencies": {
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0"
+  },
+  "devDependencies": {
+    "webpack": "^3.10.0"
+  }
+}
