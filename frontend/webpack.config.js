@@ -1,6 +1,7 @@
 const path = require('path');
 
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 // Constant with our paths
 const paths = {
@@ -16,13 +17,13 @@ module.exports = {
     path: paths.DIST,
     filename: 'app.bundle.js',
   },
-  // index.html is used as a template in which it'll inject bundled app.
   plugins: [
     new HtmlWebpackPlugin({
       template: path.join(paths.SRC, 'index.html'),
     }),
+    new ExtractTextPlugin('style.bundle.css'),
   ],
-
+  // Loader configuration
   module: {
     rules: [
       {
@@ -31,6 +32,15 @@ module.exports = {
         use: [
           'babel-loader',
         ],
+      },
+      // CSS loader to CSS files
+      // Files will get handled by css loader and then passed to the extract text plugin
+      // which will write it to the file we defined above
+      {
+        test: /\.css$/,
+        loader: ExtractTextPlugin.extract({
+          use: 'css-loader',
+        }),
       },
     ],
   },
