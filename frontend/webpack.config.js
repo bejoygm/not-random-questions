@@ -42,6 +42,14 @@ module.exports = {
           use: 'css-loader',
         }),
       },
+      // File loader for image assets
+      // Only image extensions
+      {
+        test: /\.(png|jpg|gif)$/,
+        use: [
+          'file-loader',
+        ],
+      },
     ],
   },
   // Enable importing JS files without specifying their's extenstion
