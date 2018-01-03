@@ -5,15 +5,18 @@ import '../css/style.css';
 
 import keenImage from '../assets/keen.png';
 
-export default class Hello extends Component {
+import Goal from './components/Goal.js';
+
+export default class App extends Component {
     render() {
         return (
             <div>
-              NRQ!
-              <img src={ keenImage } alt='Commander Keen' />
+              <div>NRQ!</div>
+              <div>Create End Goal</div>
+              <Goal></Goal>
             </div>
         )
     }
 }
 
-render(<Hello />, document.getElementById('app'));
+render(<App />, document.getElementById('app'));
