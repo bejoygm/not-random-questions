@@ -29,7 +29,7 @@ class ViewTestCase(TestCase):
         self.goal_data = {'name': 'Make Crane Oragami'}
         self.response = self.client.post(
             reverse('create'),
-            self.bucketlist_data,
+            self.goal_data,
             format="json"
         )
 
