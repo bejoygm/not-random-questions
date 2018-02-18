@@ -4,6 +4,7 @@ from django.urls import reverse
 
 from django.test import TestCase
 from .models import Goal
+from .serializers import GoalSerializer
 
 class ModelTestCase(TestCase):
     """This class defines the test suite for the Goal model."""
@@ -28,7 +29,7 @@ class ViewTestCase(TestCase):
         self.client = APIClient()
         self.goal_data = {'name': 'Make Crane Oragami'}
         self.response = self.client.post(
-            reverse('create'),
+            reverse('goals'),
             self.goal_data,
             format="json"
         )
@@ -36,3 +37,35 @@ class ViewTestCase(TestCase):
     def test_api_can_create_a_goal(self):
         """Test the api has bucket creation capability."""
         self.assertEqual(self.response.status_code, status.HTTP_201_CREATED)
+
+    def test_api_can_get_a_goal(self):
+        goal = Goal.objects.get()
+        response = self.client.get(
+            reverse('goal',
+                kwargs={'id': goal.id}), format='json'
+        )
+        serializer = GoalSerializer(goal)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data, serializer.data)
+
+    # add auth for update and delete
+    def test_api_can_update_goal(self):
+        goal = Goal.objects.get()
+        update_goal = {'name': 'Cranes everywhere'}
+        response = self.client.put(
+            reverse('goal', kwargs={'id': goal.id}),
+            update_goal, format='json'
+        )
+        self.assertEqual(response.data['name'], update_goal['name'])
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+    def test_api_can_delete_goal(self):
+        goal = Goal.objects.get()
+        response = self.client.delete(
+            reverse('goal', kwargs={'id': goal.id}),
+            format='json',
+            follow=True
+        )
+        self.assertEquals(response.status_code, status.HTTP_204_NO_CONTENT)
+
+
