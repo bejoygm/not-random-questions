@@ -6,6 +6,7 @@ from django.test import TestCase
 from .models import Goal
 from .serializers import GoalSerializer
 
+
 class ModelTestCase(TestCase):
     """This class defines the test suite for the Goal model."""
 
@@ -20,6 +21,7 @@ class ModelTestCase(TestCase):
         self.goal.save()
         new_count = Goal.objects.count()
         self.assertNotEqual(old_count, new_count)
+
 
 class ViewTestCase(TestCase):
     """Test suite for the api views."""
@@ -42,7 +44,7 @@ class ViewTestCase(TestCase):
         goal = Goal.objects.get()
         response = self.client.get(
             reverse('goal',
-                kwargs={'id': goal.id}), format='json'
+                    kwargs={'id': goal.id}), format='json'
         )
         serializer = GoalSerializer(goal)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
@@ -67,5 +69,3 @@ class ViewTestCase(TestCase):
             follow=True
         )
         self.assertEquals(response.status_code, status.HTTP_204_NO_CONTENT)
-
-
