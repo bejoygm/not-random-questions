@@ -3,7 +3,7 @@ from .serializers import GoalSerializer
 from .models import Goal
 
 
-class CreateView(generics.ListCreateAPIView):
+class GoalList(generics.ListCreateAPIView):
     """Creates Goals"""
     queryset = Goal.objects.all()
     serializer_class = GoalSerializer
@@ -13,7 +13,7 @@ class CreateView(generics.ListCreateAPIView):
         serializer.save()
 
 
-class DetailsView(generics.RetrieveUpdateDestroyAPIView):
+class GoalDetails(generics.RetrieveUpdateDestroyAPIView):
     """Handles individual goals.
     TOOD: Add write rules for admins of goals only"""
     lookup_field = 'id'

@@ -7,8 +7,8 @@ from .models import Goal
 from .serializers import GoalSerializer
 
 
-class ModelTestCase(TestCase):
-    """This class defines the test suite for the Goal model."""
+class GoalModelTestCase(TestCase):
+    """Test suite for the Goal model."""
 
     def setUp(self):
         """Define the test client and other test variables"""
@@ -23,7 +23,7 @@ class ModelTestCase(TestCase):
         self.assertNotEqual(old_count, new_count)
 
 
-class ViewTestCase(TestCase):
+class GoalViewTestCase(TestCase):
     """Test suite for the api views."""
 
     def setUp(self):
