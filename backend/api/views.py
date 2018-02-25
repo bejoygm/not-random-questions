@@ -1,6 +1,6 @@
 from rest_framework import generics
-from .serializers import GoalSerializer
-from .models import Goal
+from .serializers import GoalSerializer, QuestionSerializer
+from .models import Goal, Question
 
 
 class GoalList(generics.ListCreateAPIView):
@@ -19,3 +19,17 @@ class GoalDetails(generics.RetrieveUpdateDestroyAPIView):
     lookup_field = 'id'
     queryset = Goal.objects.all()
     serializer_class = GoalSerializer
+
+
+class QuestionList(generics.ListCreateAPIView):
+    """Creates Questions Under a Goal"""
+    serializer_class = QuestionSerializer
+
+    def get_queryset(self):
+        """Get questions associated with the goal"""
+        return Question.objects.filter(goal_id=self.kwargs['goal_id'])
+
+    def perform_create(self, serializer):
+        goal = Goal.objects.get(id=self.kwargs['goal_id'])
+        serializer.save(goal=goal)
+

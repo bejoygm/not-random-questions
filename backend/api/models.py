@@ -10,13 +10,13 @@ class Goal(models.Model):
         return "Goal: {}".format(self.name)
 
 
-# class Question(models.Model):
-#     """Questions associated with a Goal."""
-#     goal = models.ForeignKey(Goal, on_delete=models.CASCADE)
-#     text = models.CharField(max_length=400, blank=False)
+class Question(models.Model):
+    """Questions associated with a Goal."""
+    goal = models.ForeignKey(Goal, on_delete=models.CASCADE)
+    text = models.CharField(max_length=400, blank=False)
 
-#     def __str__(self):
-#     	return "Question: {}".format(self.text)
+    def __str__(self):
+        return "Question: {}".format(self.text)
 
 
 # class Answer(models.Model):
