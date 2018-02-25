@@ -3,8 +3,8 @@ from rest_framework import status
 from django.urls import reverse
 
 from django.test import TestCase
-from .models import Goal
-from .serializers import GoalSerializer
+from .models import Goal, Question
+from .serializers import GoalSerializer, QuestionSerializer
 
 
 class GoalModelTestCase(TestCase):
@@ -69,3 +69,21 @@ class GoalViewTestCase(TestCase):
             follow=True
         )
         self.assertEquals(response.status_code, status.HTTP_204_NO_CONTENT)
+
+class QuestionModelTest(TestCase):
+    """Test suite for Question Model"""
+
+    def setUp(self):
+        # TODO: introduce factory
+        self.goal_name = "Make a pizza"
+        self.goal = Goal(name=self.goal_name)
+        self.goal.save()
+        self.question_text = 'Prepare dough'
+        self.question = Question(text=self.question_text, goal=self.goal)
+
+    def test_modal_can_create_a_question(self):
+        old_count = Question.objects.count()
+        self.question.save()
+        new_count = Question.objects.count()
+        self.assertNotEqual(old_count, new_count)
+
