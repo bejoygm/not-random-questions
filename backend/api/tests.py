@@ -70,7 +70,7 @@ class GoalViewTestCase(TestCase):
         )
         self.assertEquals(response.status_code, status.HTTP_204_NO_CONTENT)
 
-class QuestionModelTest(TestCase):
+class QuestionModelTestCase(TestCase):
     """Test suite for Question Model"""
 
     def setUp(self):
@@ -86,4 +86,24 @@ class QuestionModelTest(TestCase):
         self.question.save()
         new_count = Question.objects.count()
         self.assertNotEqual(old_count, new_count)
+
+class QuestionViewTestCase(TestCase):
+    """Test suite for the api views."""
+
+    def setUp(self):
+        # TODO: mock api calls
+        self.goal_name = "Make a pizza"
+        self.goal = Goal(name=self.goal_name)
+        self.goal.save()
+        self.question_data = {'text': 'Prepare dough'}
+        self.client = APIClient()
+        self.response = self.client.post(
+            reverse('questions',
+                    kwargs={'goal_id': self.goal.id}),
+            self.question_data,
+            format='json'
+        )
+
+    def test_api_can_create_question_under_a_goal(self):
+        self.assertEqual(self.response.status_code, status.HTTP_201_CREATED)
 
