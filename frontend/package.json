@@ -25,6 +25,7 @@
     "webpack": "^3.10.0"
   },
   "scripts": {
+    "start": "npm run dev",
     "dev": "webpack-dev-server",
     "build": "webpack"
   }

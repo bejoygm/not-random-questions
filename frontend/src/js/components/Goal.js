@@ -17,7 +17,7 @@ class Goal extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    axios.post('http://localhost:8000/goal', {name: 'hula'}).then((data) => {
+    axios.post('http://localhost:8000/goal/', {name: 'hula'}).then((data) => {
       // console.log(data);
     })
   }
